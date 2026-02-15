@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> CPSU Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf7f0; 
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header img {
+      width: 70px;
+      margin-right: 15px;
+    }
+
+    h1 {
+      color: #2f6f4f;
+    }
+
+    h3 {
+      color: #3c8c63;
+    }
+
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+      border: 1px solid #b7e4c7;
+      border-radius: 6px;
+      background-color: #f6fff9;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #95d5b2;
+      border: none;
+      border-radius: 6px;
+      color: #1b4332;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #74c69d;
+    }
+
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #d8f3dc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #b7e4c7;
+      color: #1b4332;
+    }
+
+    .delete {
+      background-color: #ffadad;
+      color: #7f0000;
+    }
+
+    .delete:hover {
+      background-color: #ff8fa3;
+    }
+
+    .edit {
+      background-color: #caffbf;
+      color: #2d6a4f;
+    }
+
+    .edit:hover {
+      background-color: #a7f3d0;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+  
+    <img src="cpsu-logo.png.png" alt="CPSU Logo">
+    <h1>CPSU Library Management System</h1>
+  </div>
+
+  <h3>Add / Edit Book</h3>
+
+  <input id="title" placeholder="Book Title">
+  <input id="author" placeholder="Author">
+  <button onclick="saveBook()" id="saveBtn">Add Book</button>
+
+  <hr>
+
+  <h3>Book List</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="bookTable"></tbody>
+  </table>
+
+</div>
+
+<script>
+
+let books = [];
+let idCounter = 1;
+let editingId = null;
+
+function saveBook() {
+  if (title.value === "" || author.value === "") {
+    alert("Please fill all fields");
+    return;
+  }
+
+  if (editingId === null) {
+    books.push({
+      id: idCounter++,
+      title: title.value,
+      author: author.value
+    });
+  } else {
+    const book = books.find(b => b.id === editingId);
+    book.title = title.value;
+    book.author = author.value;
+    editingId = null;
+    saveBtn.innerText = "Add Book";
+  }
+
+  title.value = "";
+  author.value = "";
+
+  render();
+}
+
+function render() {
+  bookTable.innerHTML = books.map(book => `
+    <tr>
+      <td>${book.id}</td>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>
+        <button onclick="editBook(${book.id})" class="edit">Edit</button>
+        <button onclick="deleteBook(${book.id})" class="delete">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function editBook(id) {
+  const book = books.find(b => b.id === id);
+  title.value = book.title;
+  author.value = book.author;
+  editingId = id;
+  saveBtn.innerText = "Update Book";
+}
+
+function deleteBook(id) {
+  books = books.filter(b => b.id !== id);
+  render();
+}
+
+</script>
+
+</body>
+</html>
