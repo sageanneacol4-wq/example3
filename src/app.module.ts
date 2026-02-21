@@ -12,7 +12,7 @@ import { UsersModule } from './users/users.module';
       type: 'mysql',
       url: process.env.MYSQL_PUBLIC_URL, // match Railway variable
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
