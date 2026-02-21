@@ -1,38 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Manager</title>
-  <style>
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    button { margin-right: 5px; }
-    input { margin: 5px 0; padding: 5px; width: 200px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>CPSU Library Management System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #cfdad4;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+            background: #f2f2f2;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header img {
+            width: 70px;
+        }
+
+        h1 {
+            color: #2f6f54;
+        }
+
+        h2 {
+            color: #2f6f54;
+        }
+
+        .form {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #8bb59f;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-add {
+            background-color: #79b48f;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #9be19b;
+        }
+
+        .btn-delete {
+            background-color: #f28c8c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #9fc8b0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e6e6e6;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Book Manager</h1>
+<div class="container">
+    <div class="header">
+        <img src="cpsu-logo.png.png" alt="Logo">
+        <h1>CPSU Library Management System</h1>
+    </div>
 
-  <input type="text" id="title" placeholder="Book Title">
-  <input type="text" id="author" placeholder="Author">
-  <button id="saveBtn">Add Book</button>
+    <h2>Add / Edit Book</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="bookTable">
-      <!-- Books will render here -->
-    </tbody>
-  </table>
+    <div class="form">
+        <input type="text" id="title" placeholder="Book Title">
+        <input type="text" id="author" placeholder="Author">
+        <button class="btn-add" onclick="addBook()">Add Book</button>
+    </div>
 
-  <script src="main.js" defer></script>
+    <hr>
+
+    <h2>Book List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="bookTable"></tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

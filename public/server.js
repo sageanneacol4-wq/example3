@@ -1,61 +1,70 @@
-import express from "express";
-import mysql from "mysql2/promise";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+require("dotenv").config();
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // Serve frontend files
 
-// Connect to MySQL (Railway or local)
-const db = await mysql.createConnection(process.env.DATABASE_URL);
-
-// Create table if it doesn't exist
-await db.query(`
-  CREATE TABLE IF NOT EXISTS books (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    author VARCHAR(255)
-  )
-`);
-
-// GET all books
-app.get("/books", async (req, res) => {
-  const [rows] = await db.query("SELECT * FROM books");
-  res.json(rows);
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: 3306
 });
 
-// GET single book by ID
-app.get("/books/:id", async (req, res) => {
-  const [rows] = await db.query("SELECT * FROM books WHERE id = ?", [req.params.id]);
-  if (rows.length === 0) return res.status(404).json({ message: "Book not found" });
-  res.json(rows[0]);
+db.connect(err => {
+    if (err) console.log("DB Error:", err);
+    else console.log("Connected to MySQL");
 });
 
-// ADD book
-app.post("/books", async (req, res) => {
-  const { title, author } = req.body;
-  await db.query("INSERT INTO books (title, author) VALUES (?, ?)", [title, author]);
-  res.json({ message: "Book added" });
+/* CREATE */
+app.post("/books", (req, res) => {
+    const { title, author } = req.body;
+    db.query("INSERT INTO books (title, author) VALUES (?, ?)",
+        [title, author],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Book added" });
+        });
 });
 
-// UPDATE book
-app.put("/books/:id", async (req, res) => {
-  const { title, author } = req.body;
-  await db.query("UPDATE books SET title=?, author=? WHERE id=?", [title, author, req.params.id]);
-  res.json({ message: "Book updated" });
+/* READ */
+app.get("/books", (req, res) => {
+    db.query("SELECT * FROM books", (err, results) => {
+        if (err) return res.status(500).json(err);
+        res.json(results);
+    });
 });
 
-// DELETE book
-app.delete("/books/:id", async (req, res) => {
-  await db.query("DELETE FROM books WHERE id=?", [req.params.id]);
-  res.json({ message: "Book deleted" });
+/* UPDATE */
+app.put("/books/:id", (req, res) => {
+    const { id } = req.params;
+    const { title, author } = req.body;
+
+    db.query("UPDATE books SET title=?, author=? WHERE id=?",
+        [title, author, id],
+        err => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Book updated" });
+        });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+/* DELETE */
+app.delete("/books/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.query("DELETE FROM books WHERE id=?",
+        [id],
+        err => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Book deleted" });
+        });
+});
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Server running...");
+});
