@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>CPSU Library Management System</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Manager</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    button { margin-right: 5px; }
+    input { margin: 5px 0; padding: 5px; width: 200px; }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <h1>Book Manager</h1>
 
-  <div class="header">
-    <img src="/cpsu-logo.png" alt="CPSU Logo">
-    <h1>CPSU Library Management System</h1>
-  </div>
-
-  <h3>Add / Edit Book</h3>
-
-  <div class="form-group">
-    <input id="title" placeholder="Book Title">
-    <input id="author" placeholder="Author">
-    <button id="saveBtn" class="add-btn">Add Book</button>
-  </div>
-
-  <hr>
-
-  <h3>Book List</h3>
+  <input type="text" id="title" placeholder="Book Title">
+  <input type="text" id="author" placeholder="Author">
+  <button id="saveBtn">Add Book</button>
 
   <table>
     <thead>
@@ -34,11 +28,11 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="bookTable"></tbody>
+    <tbody id="bookTable">
+      <!-- Books will render here -->
+    </tbody>
   </table>
 
-</div>
-
-<script src="/script.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
