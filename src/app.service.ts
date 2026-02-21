@@ -14,5 +14,3 @@ export class AppService {
     return readFileSync(pathToHtml, { encoding: 'utf-8' });
   }
 }
-
-
