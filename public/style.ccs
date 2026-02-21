@@ -1,88 +1,90 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #eaf7f0;
+  background: #cddbd4;
+  margin: 0;
   padding: 40px;
 }
 
 .container {
-  background: #ffffff;
+  background: #f4f4f4;
   padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-radius: 15px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  gap: 20px;
 }
 
 .header img {
-  width: 70px;
-  margin-right: 15px;
+  width: 80px;
 }
 
-h1 { color: #2f6f4f; }
-h3 { color: #3c8c63; }
+h1 {
+  color: #1e6b4d;
+}
+
+h3 {
+  color: #1e6b4d;
+}
+
+.form-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
 
 input {
-  padding: 8px;
-  margin: 5px;
-  width: 200px;
-  border: 1px solid #b7e4c7;
+  padding: 10px;
   border-radius: 6px;
-  background-color: #f6fff9;
+  border: 1px solid #8db39f;
+  width: 200px;
 }
 
-button {
-  padding: 8px 12px;
-  margin: 5px;
-  cursor: pointer;
-  background-color: #95d5b2;
+.add-btn {
+  background: #8db39f;
   border: none;
+  padding: 10px 15px;
   border-radius: 6px;
-  color: #1b4332;
+  cursor: pointer;
   font-weight: bold;
 }
 
-button:hover {
-  background-color: #74c69d;
+.add-btn:hover {
+  background: #6e9f86;
 }
 
 table {
-  margin-top: 20px;
-  border-collapse: collapse;
   width: 100%;
-  background: #ffffff;
-  border-radius: 10px;
-  overflow: hidden;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead {
+  background: #a7cdb7;
 }
 
 th, td {
-  border: 1px solid #d8f3dc;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
+  border-bottom: 1px solid #ccc;
 }
 
-th {
-  background-color: #b7e4c7;
-  color: #1b4332;
+button {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }
 
-.delete {
-  background-color: #ffadad;
-  color: #7f0000;
+button.edit {
+  background: #9cd39b;
 }
 
-.delete:hover {
-  background-color: #ff8fa3;
-}
-
-.edit {
-  background-color: #caffbf;
-  color: #2d6a4f;
-}
-
-.edit:hover {
-  background-color: #a7f3d0;
+button.delete {
+  background: #f29c9c;
 }
