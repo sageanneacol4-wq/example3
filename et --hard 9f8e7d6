@@ -1,0 +1,14 @@
+[33m0841ca7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m Fix API URL
+[33me66e6f4[m Fix API URL
+[33m867df8e[m updated library system
+[33m4639e59[m Fix API URL and restore script.js
+[33mfd166c3[m Update code
+[33m7372ec7[m Fix frontend add book
+[33m0e1b72d[m Update database config
+[33m52a2de1[m Enable TypeORM synchronize in production
+[33m01e22f9[m Add external JS file
+[33m51e234a[m Fix TS1272 import type error
+[33mf2c8886[m Force fresh Railway build
+[33m65215cc[m Add serve-static and update app.module
+[33mebe66df[m Fix MySQL connection and install serve-static
+[33m1e3a147[m[33m ([m[1;31morigin/main[m[33m)[m Initial commit
