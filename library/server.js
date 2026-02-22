@@ -2,35 +2,49 @@ require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend files
-app.use(express.static(path.join(__dirname, "public")));
-
+// MySQL connection
 const db = mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE,
-    port: process.env.MYSQLPORT || 3306
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: 3306
 });
 
 db.connect(err => {
     if (err) {
-        console.log("DB Error:", err);
+        console.log("❌ DB Error:", err);
     } else {
-        console.log("Connected to MySQL");
+        console.log("✅ Connected to MySQL");
+
+        // Create table if not exists
+        db.query(`
+            CREATE TABLE IF NOT EXISTS books (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                title VARCHAR(255),
+                author VARCHAR(255)
+            )
+        `);
     }
+});
+
+// Root route
+app.get("/", (req, res) => {
+    res.send("API is running 🚀");
 });
 
 /* CREATE */
 app.post("/books", (req, res) => {
     const { title, author } = req.body;
+
+    if (!title || !author)
+        return res.status(400).json({ message: "Missing fields" });
 
     db.query(
         "INSERT INTO books (title, author) VALUES (?, ?)",
@@ -82,5 +96,5 @@ app.delete("/books/:id", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log("Server running on port", PORT);
+    console.log(🚀 Server running on port ${PORT});
 });
